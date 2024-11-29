@@ -1,0 +1,11 @@
+export 'entities/address_entity.dart';
+export 'entities/geolocation_entity.dart';
+export 'entities/human_name_entity.dart';
+export 'entities/product_category_entity.dart';
+export 'entities/product_entity.dart';
+export 'entities/product_rating_entity.dart';
+export 'entities/product_rating_scale_entity.dart';
+export 'entities/product_sorting_criterion_entity.dart';
+export 'entities/shopping_cart_entity.dart';
+export 'entities/shopping_cart_item_entity.dart';
+export 'entities/user_entity.dart';

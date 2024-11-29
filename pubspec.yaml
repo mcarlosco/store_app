@@ -1,0 +1,33 @@
+name: store_app
+description: "Store App."
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.3
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  fun_pro_pkg:
+    git:
+      url: https://github.com/mcarlosco/fun_pro_pkg
+      ref: main
+  fake_store_api_pkg:
+    git:
+      url: https://github.com/mcarlosco/fake_store_api_pkg
+      ref: main
+  provider: ^6.1.2
+  get_it: ^8.0.2
+  google_fonts: ^6.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/fonts/Lexend/static/
