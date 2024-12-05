@@ -1,8 +1,7 @@
+import 'package:design_system_pkg/design_system_pkg.dart';
 import 'package:flutter/material.dart';
 
 import '../../../domain/entities.dart';
-
-import '../../widgets.dart';
 
 final class ProductCardWidget extends StatelessWidget {
   final ProductEntity product;

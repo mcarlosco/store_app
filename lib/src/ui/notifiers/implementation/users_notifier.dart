@@ -44,8 +44,8 @@ final class UsersNotifier extends Notifier {
   }
 
   @override
-  void reset() {
-    super.reset();
+  void resetState() {
+    super.resetState();
     _users = null;
     _user = null;
   }

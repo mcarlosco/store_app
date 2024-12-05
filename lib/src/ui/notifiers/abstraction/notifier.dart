@@ -10,7 +10,7 @@ abstract base class Notifier with ChangeNotifier {
     notifyListeners();
   }
 
-  void reset() {
+  void resetState() {
     exception = null;
   }
 }

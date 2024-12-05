@@ -36,6 +36,7 @@ final class StoreApp extends StatelessWidget {
               product:
                   ModalRoute.of(context)!.settings.arguments as ProductEntity),
           catalogScreenPath: (_) => const CatalogScreen(),
+          searchScreenPath: (_) => const SearchScreen(),
         },
         home: const HomeScreen(),
       ),

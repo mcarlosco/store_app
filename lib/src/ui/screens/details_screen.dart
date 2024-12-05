@@ -1,3 +1,4 @@
+import 'package:design_system_pkg/design_system_pkg.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -36,7 +37,6 @@ final class _DetailsScreenState extends State<DetailsScreen> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(
-            vertical: 10,
             horizontal: 20,
           ),
           child: Column(
@@ -48,9 +48,7 @@ final class _DetailsScreenState extends State<DetailsScreen> {
                     descriptionTextMaxLines: 10,
                     buttonText: 'Buy',
                     onButtonPressed: _item != null && _item!.quantity > 0
-                        ? () {
-                            _onProductCardButtonPressed(context);
-                          }
+                        ? () => _onProductCardButtonPressed(context)
                         : null,
                     chipIcon: const Icon(Icons.star_rate_rounded),
                     chipText:
@@ -58,42 +56,47 @@ final class _DetailsScreenState extends State<DetailsScreen> {
                   );
                 },
               ),
-              Card.outlined(
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      const Text(
-                        'Add to cart:',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 1,
-                        ),
-                      ),
-                      Flexible(
-                        child: SizedBox(
-                          width: 100,
-                          child: DropdownButtonWidget(
-                            labelText: 'Quantity',
-                            helperText: 'Added',
-                            hintText: '?',
-                            value: _item?.quantity,
-                            items: List.generate(
-                              ShoppingCartItemEntity.maxQuantity + 1,
-                              (index) => DropdownMenuItemInput(
-                                value: index,
-                                text: index.toString(),
-                              ),
-                            ).reversed.toList(),
-                            onChanged: (quantity) {
-                              _onShoppingCartItemDropdownButtonChanged(
-                                  context, quantity);
-                            },
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Card.outlined(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        const Flexible(
+                          child: Text(
+                            'Add to cart:',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 1,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                        Flexible(
+                          child: SizedBox(
+                            width: 100,
+                            child: DropdownButtonWidget(
+                              labelText: 'Quantity',
+                              helperText: 'Added',
+                              hintText: '?',
+                              value: _item?.quantity,
+                              items: List.generate(
+                                ShoppingCartItemEntity.maxQuantity + 1,
+                                (index) => DropdownMenuItemInput(
+                                  value: index,
+                                  text: index.toString(),
+                                ),
+                              ).reversed.toList(),
+                              onChanged: (quantity) {
+                                _onShoppingCartItemDropdownButtonChanged(
+                                    context, quantity);
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -107,6 +110,13 @@ final class _DetailsScreenState extends State<DetailsScreen> {
   void _addPostFrameCallback(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _setItem();
+    });
+  }
+
+  void _setItem() {
+    setState(() {
+      _item =
+          context.read<ShoppingNotifier>().getShoppingCartItem(widget.product);
     });
   }
 
@@ -126,12 +136,5 @@ final class _DetailsScreenState extends State<DetailsScreen> {
 
       _setItem();
     }
-  }
-
-  void _setItem() {
-    setState(() {
-      _item =
-          context.read<ShoppingNotifier>().getShoppingCartItem(widget.product);
-    });
   }
 }

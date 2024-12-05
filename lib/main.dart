@@ -15,15 +15,17 @@ void main() {
         await rootBundle.loadString('assets/fonts/Lexend/OFL.txt'));
   });
 
-  final di = GetIt.instance;
-
-  di
-    ..registerLazySingleton<ProductsRepository>(() => FakeProductsApi())
-    ..registerLazySingleton<UsersRepository>(() => FakeUsersApi());
-
   WidgetsFlutterBinding.ensureInitialized();
 
   SystemChrome.setPreferredOrientations(const [DeviceOrientation.portraitUp]);
 
+  _registerDataRepositories();
+
   runApp(const StoreApp());
+}
+
+void _registerDataRepositories() {
+  GetIt.instance
+    ..registerLazySingleton<ProductsRepository>(() => FakeProductsApi())
+    ..registerLazySingleton<UsersRepository>(() => FakeUsersApi());
 }

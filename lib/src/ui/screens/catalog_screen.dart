@@ -1,10 +1,11 @@
+import 'package:design_system_pkg/design_system_pkg.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:store_app/src/ui/screens.dart';
 
 import '../../domain/entities.dart';
 
 import '../notifiers.dart';
+import '../screens.dart';
 import '../widgets.dart';
 
 final class CatalogScreen extends StatefulWidget {
@@ -38,61 +39,62 @@ final class _CatalogScreenState extends State<CatalogScreen> {
         ),
         child: Column(
           children: [
-            const SizedBox(height: 20),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Flexible(
-                  child:
-                      Selector<ProductsNotifier, List<ProductCategoryEntity>?>(
-                    selector: (_, notifier) => notifier.categories,
-                    builder: (_, categories, __) {
-                      final products =
-                          context.read<ProductsNotifier>().categoryProducts;
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Flexible(
+                    child: Selector<ProductsNotifier,
+                        List<ProductCategoryEntity>?>(
+                      selector: (_, notifier) => notifier.categories,
+                      builder: (_, categories, __) {
+                        final products =
+                            context.read<ProductsNotifier>().categoryProducts;
 
-                      return DropdownButtonWidget(
-                        labelText: 'Category',
-                        hintText: 'none',
-                        helperText: '${products?.length ?? '?'} product(s)',
-                        value: _category,
-                        items: categories
-                            ?.map(
-                              (category) => DropdownMenuItemInput(
-                                value: category,
-                                text: category.name,
-                              ),
-                            )
-                            .toList(),
-                        onChanged: _onCategoryDropdownButtonChanged,
-                      );
-                    },
+                        return DropdownButtonWidget(
+                          labelText: 'Category',
+                          hintText: 'none',
+                          helperText: '${products?.length ?? 0} product(s)',
+                          value: _category,
+                          items: categories
+                              ?.map(
+                                (category) => DropdownMenuItemInput(
+                                  value: category,
+                                  text: category.name,
+                                ),
+                              )
+                              .toList(),
+                          onChanged: _onCategoryDropdownButtonChanged,
+                        );
+                      },
+                    ),
                   ),
-                ),
-                const SizedBox(width: 20),
-                Flexible(
-                  child: DropdownButtonWidget(
-                    labelText: 'Sort by',
-                    hintText: 'default',
-                    helperText: _criterion != null
-                        ? _criterion!.isAscending
-                            ? 'Ascending'
-                            : 'Descending'
-                        : 'Not ordered',
-                    value: _criterion,
-                    items: ProductSortingCriterionEntity.values
-                        .map(
-                          (criterion) => DropdownMenuItemInput(
-                            value: criterion,
-                            text: criterion.name,
-                          ),
-                        )
-                        .toList(),
-                    onChanged: _onCriterionDropdownButtonChanged,
+                  const HorizontalSpacerWidget.x4(),
+                  Flexible(
+                    child: DropdownButtonWidget(
+                      labelText: 'Sort by',
+                      hintText: 'default',
+                      helperText: _criterion != null
+                          ? _criterion!.isAscending
+                              ? 'Ascending'
+                              : 'Descending'
+                          : 'Unordered',
+                      value: _criterion,
+                      items: ProductSortingCriterionEntity.values
+                          .map(
+                            (criterion) => DropdownMenuItemInput(
+                              value: criterion,
+                              text: criterion.name,
+                            ),
+                          )
+                          .toList(),
+                      onChanged: _onCriterionDropdownButtonChanged,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-            const SizedBox(height: 20),
             const Divider(height: 0),
             Selector<ProductsNotifier, List<ProductEntity>?>(
               selector: (_, notifier) => notifier.categoryProducts,
@@ -115,6 +117,7 @@ final class _CatalogScreenState extends State<CatalogScreen> {
                           );
                         },
                         shrinkWrap: true,
+                        padding: const EdgeInsets.symmetric(vertical: 10),
                       ),
                     )
                   : Container(),

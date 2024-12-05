@@ -1,3 +1,4 @@
+import 'package:design_system_pkg/design_system_pkg.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -60,7 +61,9 @@ final class ShoppingCartDrawerWidget extends StatelessWidget {
                   '\$${context.select<ShoppingNotifier, String>((notifier) => notifier.totalStringAsFixed)}'),
               subtitle: const Text('Total'),
               trailing: FilledButton(
-                onPressed: items.isNotEmpty ? () {} : null,
+                onPressed: items.isNotEmpty
+                    ? () => _onPaymentButtonPressed(context)
+                    : null,
                 child: const Text('Pay'),
               ),
             ),
@@ -91,5 +94,11 @@ final class ShoppingCartDrawerWidget extends StatelessWidget {
           )
           .ignore();
     }
+  }
+
+  void _onPaymentButtonPressed(BuildContext context) {
+    Navigator.of(context).pop<void>();
+    showSnackBar(context,
+        'We apologize for this, but payments are not currently available.');
   }
 }

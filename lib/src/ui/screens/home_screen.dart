@@ -1,3 +1,4 @@
+import 'package:design_system_pkg/design_system_pkg.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,6 +16,7 @@ final class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ShoppingScaffoldWidget(
       title: 'Coco Store 🌴',
+      searchActionVisible: true,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(
@@ -24,10 +26,10 @@ final class HomeScreen extends StatelessWidget {
           child: Column(
             children: [
               const Text(
-                'The most fresh products for everyone!',
+                '🌊 The most fresh products for everyone 😎',
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 10),
+              const VerticalSpacerWidget.x2(),
               Selector<ProductsNotifier, List<ProductEntity>?>(
                 selector: (_, notifier) => notifier.featuredProducts,
                 builder: (context, products, _) => products != null

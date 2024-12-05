@@ -8,6 +8,7 @@ final class ProductsNotifier extends Notifier {
   final FilterCategoryProductsCommand _filterCategoryProductsCmd;
   final FilterFeaturedProductsCommand _filterFeaturedProductsCmd;
   final FilterPopularProductsCommand _filterPopularProductsCmd;
+  final FilterSearchableProductsCommand _filterSearchableProductsCmd;
   final GetAllCategoriesCommand _getAllCategoriesCmd;
   final GetCategoriesCommand _getCategoriesCmd;
   final GetProductCommand _getProductCmd;
@@ -18,6 +19,7 @@ final class ProductsNotifier extends Notifier {
   List<ProductEntity>? _categoryProducts;
   List<ProductEntity>? _featuredProducts;
   List<ProductEntity>? _popularProducts;
+  List<ProductEntity>? _searchableProducts;
   List<ProductEntity>? _products;
   ProductEntity? _product;
 
@@ -25,6 +27,7 @@ final class ProductsNotifier extends Notifier {
       : _filterCategoryProductsCmd = const FilterCategoryProductsCommand(),
         _filterFeaturedProductsCmd = const FilterFeaturedProductsCommand(),
         _filterPopularProductsCmd = const FilterPopularProductsCommand(),
+        _filterSearchableProductsCmd = const FilterSearchableProductsCommand(),
         _getAllCategoriesCmd = GetAllCategoriesCommand(productsRepo),
         _getCategoriesCmd = GetCategoriesCommand(productsRepo),
         _getProductCmd = GetProductCommand(productsRepo),
@@ -37,6 +40,7 @@ final class ProductsNotifier extends Notifier {
   List<ProductEntity>? get categoryProducts => _categoryProducts;
   List<ProductEntity>? get featuredProducts => _featuredProducts;
   List<ProductEntity>? get popularProducts => _popularProducts;
+  List<ProductEntity>? get searchableProducts => _searchableProducts;
   List<ProductEntity>? get products => _products;
   ProductEntity? get product => _product;
 
@@ -44,6 +48,7 @@ final class ProductsNotifier extends Notifier {
   bool get hasCategoryProducts => _categoryProducts != null;
   bool get hasFeaturedProducts => _featuredProducts != null;
   bool get hasPopularProducts => _popularProducts != null;
+  bool get hasSearchableProducts => _searchableProducts != null;
   bool get hasProducts => _products != null;
   bool get hasProduct => _product != null;
 
@@ -74,6 +79,17 @@ final class ProductsNotifier extends Notifier {
 
   void filterPopularProducts() {
     _popularProducts = _filterPopularProductsCmd.execute(_products);
+
+    notifyListeners();
+  }
+
+  void filterSearchableProducts(String title) {
+    _searchableProducts = _filterSearchableProductsCmd.execute(
+      FilterSearchableProductsArguments(
+        products: _products,
+        title: title,
+      ),
+    );
 
     notifyListeners();
   }
@@ -129,13 +145,20 @@ final class ProductsNotifier extends Notifier {
     notifyListeners();
   }
 
+  void clearSearchableProductsFilter() {
+    _searchableProducts = List.empty();
+
+    notifyListeners();
+  }
+
   @override
-  void reset() {
-    super.reset();
+  void resetState() {
+    super.resetState();
     _categories = null;
     _categoryProducts = null;
     _featuredProducts = null;
     _popularProducts = null;
+    _searchableProducts = null;
     _products = null;
     _product = null;
   }
