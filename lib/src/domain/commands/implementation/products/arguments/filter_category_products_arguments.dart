@@ -5,7 +5,7 @@ final class FilterCategoryProductsArguments {
   final ProductCategoryEntity category;
 
   const FilterCategoryProductsArguments({
-    required this.products,
+    this.products,
     required this.category,
   });
 }

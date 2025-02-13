@@ -120,7 +120,7 @@ final class _CatalogScreenState extends State<CatalogScreen> {
                         padding: const EdgeInsets.symmetric(vertical: 10),
                       ),
                     )
-                  : Container(),
+                  : const SizedBox.shrink(),
             ),
           ],
         ),

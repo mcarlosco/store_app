@@ -49,7 +49,7 @@ final class HomeScreen extends StatelessWidget {
                             ),
                         ],
                       )
-                    : Container(),
+                    : const SizedBox.shrink(),
               ),
               Selector<ProductsNotifier, List<ProductEntity>?>(
                 selector: (_, notifier) => notifier.popularProducts,
@@ -69,7 +69,7 @@ final class HomeScreen extends StatelessWidget {
                             ),
                         ],
                       )
-                    : Container(),
+                    : const SizedBox.shrink(),
               ),
             ],
           ),

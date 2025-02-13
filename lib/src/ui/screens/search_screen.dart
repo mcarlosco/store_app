@@ -74,7 +74,7 @@ final class _SearchScreenState extends State<SearchScreen> {
                           ],
                         ),
                       )
-                    : Container();
+                    : const SizedBox.shrink();
               },
             ),
           ],

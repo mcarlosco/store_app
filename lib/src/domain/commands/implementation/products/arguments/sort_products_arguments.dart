@@ -5,7 +5,7 @@ final class SortProductsArguments {
   final ProductSortingCriterionEntity criterion;
 
   const SortProductsArguments({
-    required this.products,
+    this.products,
     required this.criterion,
   });
 }

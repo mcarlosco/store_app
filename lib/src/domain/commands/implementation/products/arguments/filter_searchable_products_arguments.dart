@@ -5,7 +5,7 @@ final class FilterSearchableProductsArguments {
   final String title;
 
   const FilterSearchableProductsArguments({
-    required this.products,
+    this.products,
     required this.title,
   });
 }
